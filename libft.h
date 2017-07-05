@@ -6,7 +6,7 @@
 /*   By: tmckinno <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/05 09:13:53 by tmckinno          #+#    #+#             */
-/*   Updated: 2017/07/03 15:10:16 by tmckinno         ###   ########.fr       */
+/*   Updated: 2017/07/04 20:35:22 by tmckinno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define NULL_GUARD_NR(val) if (val == NULL) return
 # define ERR_CHECK(val, err) if (val == err) return NULL
 # define ERR_CNR(val, err, ret) if (val == err) return (ret)
+# define ERR_CNRF(val, err, ret, mem) if (val == err) {free(mem); return (ret);}
 # define BREAK(val, err) if (val == err) break
 
 typedef struct		s_list

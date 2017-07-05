@@ -6,7 +6,7 @@
 /*   By: tmckinno <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/03 16:50:43 by tmckinno          #+#    #+#             */
-/*   Updated: 2017/07/04 18:16:27 by tmckinno         ###   ########.fr       */
+/*   Updated: 2017/07/05 14:26:55 by tmckinno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int save_fd(const int fd, char *buf)
 	len = ft_strlen(start + 1);
 	obs_fd[fd] = ft_strnew(len);
 	ft_strcpy(obs_fd[fd], start + 1);
+//	printf("saving extra read data: %s, len: %lu\n", start + 1, len);
 	return (1);
 }
 
@@ -57,13 +58,16 @@ void	load_fd(const int fd, char **buf)
 	{
 		ft_strcpy(*buf, obs_fd[fd]);
 		ft_strdel(&obs_fd[fd]);
+//		printf("loaded extra read data from fd: %s\n", *buf);
 	}
 }
 
 int		parse_line(int fd, char **buf, char **line)
 {
+//	printf("parsing line\n");
 	buf_copy(line, *buf, ft_strlen_d(*buf, '\n'));
 	ERR_CNR(save_fd(fd, *buf), 1, 1);
+	ft_bzero(*buf, BUFF_SIZE);
 	return (0);
 }
 
@@ -75,14 +79,14 @@ int		get_next_line(const int fd, char **line)
 
 	*line = ft_strnew(0);
 	load_fd(fd, &buf);
-	ERR_CNR((parse_line(fd, &buf, line)), 1, 1);
+	ERR_CNRF((parse_line(fd, &buf, line)), 1, 1, buf);
 	while ((bytes_read = read(fd, buf, BUFF_SIZE)) > -2)
 	{
-//		printf("read buf: %s\n", buf);
-		ERR_CNR(bytes_read, -1, -1);
+//		printf("read bytes: %i buf: %s\n", bytes_read, buf);
+		ERR_CNRF(bytes_read, -1, -1, buf);
 		BREAK(bytes_read, 0);
-		ERR_CNR(parse_line(fd, &buf, line), 1, 1);
+		ERR_CNRF(parse_line(fd, &buf, line), 1, 1, buf);
 	}
-	ERR_CNR(**line, 0, 0);
+	ERR_CNRF(**line, 0, 0, buf);
 	return (1);
 }

@@ -2,7 +2,7 @@ NAME = gnl
 
 LIBFT = libft/
 
-FLAGS=-Wall -Wextra -Werror -fsanitize=address
+FLAGS=-Wall -Wextra -Werror -fsanitize=address -g
 
 SRC = get_next_line.c \
 	   main.c
