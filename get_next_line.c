@@ -6,7 +6,7 @@
 /*   By: tmckinno <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/03 16:50:43 by tmckinno          #+#    #+#             */
-/*   Updated: 2017/07/06 09:40:41 by tmckinno         ###   ########.fr       */
+/*   Updated: 2017/07/06 10:02:38 by tmckinno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	buf_copy(char **dest, char *src, size_t len)
 //	printf("buf_copy len: %lu\n", len);
 	if (!**dest)
 	{
+		free(*dest);
 		*dest = ft_strncpy(ft_strnew(len), src, len);
 //		printf("buf_copy dest 1st: %s\n", *dest);
 	}
