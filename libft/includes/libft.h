@@ -6,7 +6,7 @@
 /*   By: tmckinno <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/05 09:13:53 by tmckinno          #+#    #+#             */
-/*   Updated: 2017/06/30 15:32:54 by tmckinno         ###   ########.fr       */
+/*   Updated: 2017/07/06 11:00:02 by tmckinno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,5 @@ void				ft_lstpush(t_list **l, void *content, size_t size);
 void				ft_putnstr(char *s, size_t n);
 t_list				*ft_lstpop(t_list **l);
 void				ft_lstapp(t_list **l, t_list *new);
-t_list				*ft_lstlast(t_list *);
+t_list				*ft_lstlast(t_list *l);
 #endif

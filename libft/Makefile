@@ -6,16 +6,20 @@
 #    By: tmckinno <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/05 09:30:29 by tmckinno          #+#    #+#              #
-#    Updated: 2017/06/30 14:59:03 by tmckinno         ###   ########.fr        #
+#    Updated: 2017/07/06 14:29:29 by tmckinno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
-CC = gcc
-CFLAGS = -Wall -Werror -Wextra -c
+NAME   = libft.a
+CC     = gcc
+CFLAGS = -Wall -Werror -Wextra
+OBJDIR = build
+SRCDIR = srcs
+INC    = -I ./includes/
+
 .PHONY = all clean fclean re
 
-SRC +=	ft_memalloc.c \
+FUNC +=	ft_memalloc.c \
 		ft_memdel.c \
 		ft_memset.c \
 		ft_bzero.c \
@@ -84,15 +88,21 @@ SRC +=	ft_memalloc.c \
 		ft_lstapp.c \
 		ft_lstlast.c
 
-OBJ = $(SRC:%.c=%.o)
+OBJ = $(FUNC:%.c=$(OBJDIR)/%.o)
+SRC = $(addprefix $(SRCDIR)/, $(FUNC))
 
 all: $(NAME) 
 
-$(OBJ): $(SRC)
-	$(CC) $(CFLAGS) $(SRC)
+$(OBJ): | build
+
+build:
+	@mkdir -p $@
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+	@ar rcs $(NAME) $(OBJ)
 
 clean:
 	@rm -f $(OBJ)
