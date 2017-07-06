@@ -6,7 +6,7 @@
 /*   By: tmckinno <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/03 16:50:43 by tmckinno          #+#    #+#             */
-/*   Updated: 2017/07/05 14:26:55 by tmckinno         ###   ########.fr       */
+/*   Updated: 2017/07/06 09:40:41 by tmckinno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,14 @@ int		get_next_line(const int fd, char **line)
 	char	*buf;
 	int		bytes_read;
 
+	ERR_CNR((fd < 0 || fd == 1 || fd == 2), 1, -1);
+	ERR_CNR(line, NULL, -1);
 	*line = ft_strnew(0);
 	load_fd(fd, &buf);
 	ERR_CNRF((parse_line(fd, &buf, line)), 1, 1, buf);
 	while ((bytes_read = read(fd, buf, BUFF_SIZE)) > -2)
 	{
-//		printf("read bytes: %i buf: %s\n", bytes_read, buf);
+		printf("read bytes: %i buf: %s\n", bytes_read, buf);
 		ERR_CNRF(bytes_read, -1, -1, buf);
 		BREAK(bytes_read, 0);
 		ERR_CNRF(parse_line(fd, &buf, line), 1, 1, buf);
